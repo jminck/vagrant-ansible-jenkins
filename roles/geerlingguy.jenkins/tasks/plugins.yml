@@ -21,9 +21,16 @@
     group: jenkins
     mode: 0755
 
+# Example from Ansible Playbooks
+- name: Copy admin password file
+  shell: >
+    cat /var/lib/jenkins/secrets/initialAdminPassword > ~/p 
+  become: true
+
 - name: Install Jenkins plugins.
   command: >
-    java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:8080/ install-plugin {{ item }}
+    java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:8080/ install-plugin {{ item }} --username admin --password-file ~/p
     creates=/var/lib/jenkins/plugins/{{ item }}.jpi
   with_items: jenkins_plugins
+  become: true
   notify: restart jenkins
