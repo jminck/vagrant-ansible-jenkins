@@ -1,0 +1,14 @@
+---
+- name: upgrade packages
+  apt: update_cache=yes cache_valid_time=3600 upgrade=yes
+
+- name: Install common OS packages
+  apt: pkg={{ item }}  state=present
+  with_items:
+    - unzip
+    - lynis             # auditing tool
+    - chkrootkit        # tool to check for rootkit
+
+- name: Install extra OS packages
+  apt: pkg={{ item }}  state=present
+  with_items: extra_os_packages
