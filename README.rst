@@ -1,3 +1,5 @@
+forked from https://github.com/nfletton/ansible-playbooks
+
 Creates a Vagrant VM with an install of Jenkins suitable for testing
 Python and Django projects.
 
