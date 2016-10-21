@@ -46,5 +46,12 @@
     creates=/var/lib/jenkins/plugins/{{ item }}.jpi
   with_items: jenkins_plugins
   become: true
-  ignore_errors: yes
   notify: restart jenkins
+
+- name: load first time Jenkins password
+  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: result
+  become: true
+
+- name: Show Jenkins first time admin password
+  debug: msg="{{ result.stdout }}"
